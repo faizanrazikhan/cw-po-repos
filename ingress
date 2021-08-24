@@ -1,0 +1,22 @@
+  apiVersion: networking.k8s.io/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      cert-manager.io/issuer: letsencrypt-prod
+      kubernetes.io/ingress.class: nginx
+    name: litespeed-apxxxx
+    namespace: default
+  spec:
+    rules:
+      - host: www.domain.com
+        http:
+          paths:
+            - backend:
+                serviceName: litespeed-apxxxx
+                servicePort: 80
+              path: /
+    # This section is only required if TLS is to be enabled for the Ingress
+    tls:
+        - hosts:
+            - www.domain.com
+          secretName: litespeed-apxxxx-cert
